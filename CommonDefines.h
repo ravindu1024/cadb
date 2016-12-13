@@ -3,6 +3,22 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <istream>
+#include <iterator>
+#include <time.h>
+#include <sys/time.h>
+
+#define CALC_TIME(statement) {\
+                                timeval t1, t2;\
+                                gettimeofday(&t1, NULL);\
+                                statement;\
+                                gettimeofday(&t2, NULL);\
+                                long seconds  = t2.tv_sec  - t1.tv_sec;\
+                                long useconds = t2.tv_usec - t1.tv_usec;\
+                                long time = ((seconds) * 1000 + useconds/1000.0) + 0.5;\
+                                printf("execution time: %ld ms\n", time);\
+                             }
 
 typedef struct _logData
 {
@@ -26,32 +42,19 @@ typedef struct _logData
     }
 } LogData;
 
-typedef struct _deviceInfo
-{
-    std::string adb;
-    std::string device;
-
-    _deviceInfo(std::string _adb)
-        :adb(_adb), device("")
-    {
-
-    }
-
-} DeviceInfo;
 
 class CommonDefines
 {
 public:
-    static void ExtractDevices(std::vector<std::string>& deviceList)
+    static std::vector<std::string> split(std::string const &input)
     {
-        std::vector<std::string>::iterator itr = deviceList.begin();
-        deviceList.erase(itr);
+        std::istringstream buffer(input);
+        std::vector<std::string> ret;
 
-        for(int i = 0; i<deviceList.size(); i++)
-        {
-            const char* device = deviceList[i].c_str();
-
-        }
+        std::copy(std::istream_iterator<std::string>(buffer),
+                  std::istream_iterator<std::string>(),
+                  std::back_inserter(ret));
+        return ret;
     }
 
 };

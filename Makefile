@@ -1,3 +1,2 @@
 all:
-	g++ -Wall -o cadb main.cpp
-	
+	g++ -O1 -Wall -o cadb deviceinfo.cpp main.cpp
