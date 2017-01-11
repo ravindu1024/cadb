@@ -62,10 +62,10 @@ int main(int argc, char* argv[])
             {
                 DeviceInfo device = devices[i];
                 //printf(ANSI_FORMAT_BOLD"%s %s"ANSI_FORMAT_CLEAR ANSI_TEXT_COLOR_CYAN"(Android %s, API %i)"ANSI_FORMAT_CLEAR"\n", device.brand.c_str(), device.model.c_str(), device.release.c_str(), device.sdk);
-                printf(ANSI_TEXT_COLOR_CYAN ANSI_FORMAT_BOLD"%i. %s %s"ANSI_FORMAT_CLEAR"(Android %s, API %i)\n",(i+1), device.brand.c_str(), device.model.c_str(), device.release.c_str(), device.sdk);
+                printf(ANSI_TEXT_COLOR_CYAN ANSI_FORMAT_BOLD"\t\t%i. %s %s"ANSI_FORMAT_CLEAR"(Android %s, API %i)\n",(i+1), device.brand.c_str(), device.model.c_str(), device.release.c_str(), device.sdk);
             }
 
-            cout<<"Please select device: ";
+            cout<<"\n\tPlease select device: ";
 
             scanf("%i", &selected);
         }
@@ -94,8 +94,9 @@ int main(int argc, char* argv[])
     else
     {
         //process "adb shell" commands
-        if(strcmp(argv[1], "shell") == 0)
+        if(strcmp(argv[1], "logcat") != 0)
         {
+            cout<<"argc: " << argc<<", argv[1]: "<<argv[1]<<endl;
             if(argc > 1)
             {
 
@@ -125,7 +126,7 @@ int main(int argc, char* argv[])
             }
         }
     }
-    cout<<"argc: " << argc<<", argv[1]: "<<argv[1]<<endl;
+    cout<<"unsupported command"<<endl;
 
 
     return 0;
