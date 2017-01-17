@@ -40,10 +40,13 @@ class CommandExec
             {
                 char line[10000] = "";
 
-                fgets(line, sizeof(line), fp);
+                char* ch = fgets(line, sizeof(line), fp);
 
-                if(line[strlen(line)-1] == '\n') line[strlen(line)-1] = '\0';
-                if(line[strlen(line)-1] == '\r') line[strlen(line)-1] = '\0';
+                if(ch != NULL)
+                {
+                    if(line[strlen(line)-1] == '\n') line[strlen(line)-1] = '\0';
+                    if(line[strlen(line)-1] == '\r') line[strlen(line)-1] = '\0';
+                }
 
                 fclose(fp);
 
